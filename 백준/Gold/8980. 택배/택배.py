@@ -1,17 +1,21 @@
-n, truck = map(int, input().split())
-arr = []
-answer = 0
-for i in range(int(input())):
-    arr.append(list(map(int,input().split())))
+from sys import stdin
 
-arr = sorted(arr, key = lambda x: x[1])
-can = [truck] * ((len(arr))+1)
-for s,e,cost in arr:
-    load = truck
-    for i in range(s,e):
-        if load > min(cost, can[i]):
-            load = min(cost, can[i])
-    for i in range(s,e):
-        can[i] -= load
-    answer += load
-print(answer)
+N, C =  map(int, stdin.readline().split())
+M = int(stdin.readline())
+infos = []
+for _ in range(M):
+    s, r, box = map(int, stdin.readline().split())
+    infos.append((s, r, box))
+infos.sort(key=lambda x :  x[1])
+
+capa = [C]*N
+total = 0
+for s, r, box in infos:
+    _min = C
+    for i in range(s, r):
+        if _min > min(capa[i], box) :
+            _min = min(capa[i], box)
+    for i in range(s, r):
+        capa[i] -= _min
+    total += _min
+print(total)
