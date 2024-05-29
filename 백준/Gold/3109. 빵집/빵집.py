@@ -1,23 +1,28 @@
-r, c=map(int, input().split())
-graph=[]
+import sys
+input = sys.stdin.readline
+r, c = map(int, input().split())
+m = []
 for _ in range(r):
-    graph.append(list(map(str, input())))
-answer=0
-dy=[-1, 0, 1]
-dx=[1, 1, 1]
-def dfs(y, x):
-    if x==c-1:
+    m.append(list(input()))
+
+answer = 0
+move = [(-1,1), (0,1), (1,1)]
+def dfs(x,y):
+    if y == c-1:
         return True
-    for i in range(3):
-        ny=y+dy[i]
-        nx=x+dx[i]
-        if 0<=ny<r and 0<=nx<c and graph[ny][nx]=='.':
-            graph[ny][nx]='x'
-            if dfs(ny, nx):
+    for dx, dy in move:
+        _x = x + dx
+        _y = y + dy
+        if 0 <= _x < r and 0 <= _y < c and m[_x][_y] == '.':
+            m[_x][_y] = 'x'
+            if dfs(_x, _y):
                 return True
+
     return False
 for i in range(r):
-    if graph[i][0]=='.':
+    if m[i][0] == '.':
         if dfs(i, 0):
-            answer+=1
+            answer += 1
+
 print(answer)
+            
