@@ -2,7 +2,7 @@ import sys
 input = sys.stdin.readline
 n,c = map(int, input().split())
 l = []
-answer = 0
+answer = []
 for _ in range(n):
     l.append(int(input()))
 l = sorted(l)
@@ -19,7 +19,7 @@ while start <= end:
             cnt += 1
     if cnt >= c:
         start = mid + 1
-        answer = mid
+        answer.append(mid)
     else:
         end = mid - 1
-print(answer)
+print(max(answer))
