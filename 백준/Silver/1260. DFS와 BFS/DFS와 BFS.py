@@ -1,52 +1,46 @@
 from collections import deque
 
-def dfs(graph, root):
-    visited = []
-    stack = [root]
+n, m, v = map(int, input().split())
+d = {(i+1) : [] for i in range(n)}
 
-    while stack:
-        n = stack.pop()
-        if n not in visited:
-            visited.append(n)
-            if n in graph:
-                temp = list(set(graph[n]) - set(visited))
-                temp.sort(reverse=True)
-                stack += temp
-    return visited
-
-def bfs(graph, root):
-    visited = []
-    queue = deque([root])
-
-    while queue:
-        n = queue.popleft()
-        if n not in visited:
-            visited.append(n)
-            if n in graph:
-                temp = list(set(graph[n]) - set(visited))
-                temp.sort()
-                queue += temp
-    return visited
-
-graph = {}
-n = input().split()
-node, edge, start = [int(i) for i in n]
-
-for i in range(edge):
-    edge_info = input().split()
-    n1, n2 = [int(j) for j in edge_info]
-    if n1 not in graph:
-        graph[n1] = [n2]
-    elif n2 not in graph[n1]:
-        graph[n1].append(n2)
-
-    if n2 not in graph:
-        graph[n2] = [n1]
-    elif n1 not in graph[n2]:
-        graph[n2].append(n1)
-
-dfs_result = dfs(graph, start)
-bfs_result = bfs(graph, start)
-
-print(" ".join(str(i) for i in dfs_result))
-print(" ".join(str(i) for i in bfs_result))
+for _ in range(m):
+    a,b = map(int,input().split())
+    if a not in d[b]:
+        d[b].append(a)
+    if b not in d[a]:
+        d[a].append(b)
+        
+for i in range(n):
+    d[i+1] = sorted(d[i+1])
+    
+def dfs(start, arr):
+    global answer_dfs
+    answer_dfs.append(start)
+    visited[start] = True
+    for i in arr[start]:
+        if not visited[i]:
+            dfs(i, arr)
+    return answer_dfs
+    
+def bfs(start):
+    global answer_bfs
+    answer_bfs.append(start)
+    visited[start] = True
+    q = deque(d[start])
+    while q:
+        s = q.popleft()
+        visited[s] = True
+        if s not in answer_bfs:
+            answer_bfs.append(s)
+        for i in d[s]:
+            if not visited[i]:
+                q.append(i)
+                
+answer_dfs = []
+answer_bfs = []
+visited = [False] * (n+1)
+dfs(v,d)
+visited = [False] * (n+1)
+bfs(v)
+print(*answer_dfs)
+print(*answer_bfs)
