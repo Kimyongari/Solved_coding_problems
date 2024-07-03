@@ -1,0 +1,20 @@
+from collections import deque
+n = int(input())
+d = [0] * 10001
+d[0] = 1
+d[1] = 1
+d[2] = 2
+d = deque(d)
+def changer(s):
+	s = sum(list(map(int,list(str(s)))))
+	if len(str(s)) >= 2:
+		return changer(s)
+	else:
+		return s
+for i in range(3,10001):
+	d[i] = d[i-1]*i
+	if i == n:
+		break
+print(changer(d[n]))
+	
+	
