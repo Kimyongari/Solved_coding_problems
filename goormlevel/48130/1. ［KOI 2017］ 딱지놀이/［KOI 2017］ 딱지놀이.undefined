@@ -1,0 +1,25 @@
+from collections import Counter
+answer = []
+n = int(input())
+for i in range(n):
+	a = list(input().split())
+	a = Counter(a[1:])
+	b = list(input().split())
+	b = Counter(b[1:])
+	draw = True
+	for i in ['4','3','2','1']:
+		if a[i] > b[i]:
+			answer.append('A')
+			draw = False
+			break
+		elif a[i] < b[i]:
+			answer.append('B')
+			draw = False
+			break
+		else:
+			continue
+	if draw:
+		answer.append('D')
+for i in answer:
+	print(i)
+print()
