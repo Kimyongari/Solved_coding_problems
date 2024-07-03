@@ -1,0 +1,16 @@
+from collections import deque
+n = int(input())
+q = list(map(int,input().split()))
+q.sort()
+answer = []
+while len(q) > 2:
+	a = q.pop(0)
+	pair = False
+	for i in range(len(q)-1,-1,-1):
+		if a + q[i] == 0:
+			q.pop(i)
+			pair = True
+			break
+	if not pair:
+		answer.append(a)
+print(sum(answer+q))
