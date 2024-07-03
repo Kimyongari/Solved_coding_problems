@@ -1,0 +1,27 @@
+# 근처에 물들어있는 구역의 수만큼 줄어든다
+def check():
+	wait = []
+	global m,n
+	movement = [[1,0],[-1,0],[0,1],[0,-1]]
+	for x in range(n):
+		for y in range(n):
+			if m[x][y] == 0:
+				for move in movement:
+					dx,dy = move
+					_x,_y = x+dx,y+dy
+					if 0<=_x<n and 0<=_y<n:
+						if m[_x][_y] != 0:
+							wait.append([_x,_y])
+	return wait
+n = int(input())
+m = []
+for _ in range(n):
+	m.append(list(map(int, input().split())))
+answer = 0
+while max(list(map(max, m))) != 0:
+	w = check()
+	for x,y in w:
+		m[x][y] = max(0, m[x][y]-1)
+	answer += 1
+	
+print(answer)
