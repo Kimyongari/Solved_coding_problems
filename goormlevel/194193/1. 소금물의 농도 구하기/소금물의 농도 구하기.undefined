@@ -1,0 +1,9 @@
+n,m = map(int, input().split())
+salt = n * (7/100)
+water = n-salt
+water += m
+answer = (salt/(water+salt))*100
+sub = str(answer)
+f = sub.find('.')
+print(sub[:f+3])
+
