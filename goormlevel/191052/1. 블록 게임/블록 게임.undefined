@@ -1,0 +1,24 @@
+from collections import deque
+n = int(input())
+d = input()
+s = list(map(int, input().split()))
+now = (0,0)
+state = [now]
+v = [1]
+movement = {'R':(0,1),'L':(0,-1), 'U':(1,0), 'D':(-1,0)}
+# 0,0    0,1    0,2    1,2    0,2     
+for i in range(len(d)):
+	dx,dy = movement[d[i]]
+	x,y = now
+	_dx,_dy = x+dx, y+dy
+	now = (_dx,_dy)
+	if now in state:
+		while now in state:
+			state.pop()
+			v.pop()
+		state.append(now)
+		v.append(s[i])
+	else:
+		state.append(now)
+		v.append(s[i])
+print(sum(v))
