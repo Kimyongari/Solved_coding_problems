@@ -26,4 +26,4 @@ else:
                 q.append((_dx,_dy))
                 if _dx == n-1 and _dy == m-1:
                     print(arr[_dx][_dy])
-                    q.clear()
+                    q = deque()
