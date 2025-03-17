@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 n = int(input())
 target = 'IO' * (n) + 'I'
 m = int(input())
