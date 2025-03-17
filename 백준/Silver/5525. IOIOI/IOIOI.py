@@ -1,10 +1,18 @@
 n = int(input())
-target = 'IO' * (n) + 'I'
 m = int(input())
 s = input()
-l = len(target)
+cnt = 0
 answer = 0
-for i in range(0,m-l+1):
-    if s[i:i+l] == target:
-        answer += 1
+pointer = 0
+while pointer < m-1:
+    if s[pointer:pointer+3] == 'IOI':
+        pointer += 2
+        cnt += 1
+        if cnt == n:
+            answer += 1
+            cnt -= 1
+    else:
+        pointer += 1
+        cnt = 0
+
 print(answer)
